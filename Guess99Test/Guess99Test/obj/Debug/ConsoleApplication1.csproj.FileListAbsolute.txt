@@ -1,6 +1,0 @@
-/home/green/RiderProjects/ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.exe
-/home/green/RiderProjects/ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.pdb
-/home/green/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.AssemblyReference.cache
-/home/green/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.CoreCompileInputs.cache
-/home/green/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe
-/home/green/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.pdb
