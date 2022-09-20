@@ -1,0 +1,2 @@
+# praktyki-xopero
+Patryk Adamczuk
