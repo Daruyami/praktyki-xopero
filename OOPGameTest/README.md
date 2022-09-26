@@ -17,7 +17,7 @@
       }
       ```
     - save gracza/świata
-- Scent typu popup (zachowuje poprzednie okienko (rodzica) - `Enter()` returnuje true)
+- Sceny typu popup (zachowuje poprzednie okienko (rodzica) - `Enter()` returnuje true)
 - globalna(?) klasa gracza, scena z statystykami, scena z eq
   - czy dostęp do inputu aby wyświetlić sceny graczowe jest globalny (tj tylko kiedy masz gracza jakiegoś)
 - New/Load game - zapisy gry
