@@ -41,14 +41,22 @@
     <ItemGroup>
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Scenes\DialogInteractiveScene.cs" />
+        <Compile Include="Scenes\NPCPersistentInteractiveScene.cs" />
+        <Compile Include="Scenes\persistentInteractiveScene.cs" />
         <Compile Include="Scenes\ProgramExitScene.cs" />
-        <Compile Include="Scenes\GameInteractiveScene.cs" />
+        <Compile Include="Scenes\SaveSelectorInteractiveScene.cs" />
         <Compile Include="Scenes\IScene.cs" />
         <Compile Include="Scenes\MainMenuInteractiveScene.cs" />
         <Compile Include="Scenes\InteractiveScene.cs" />
+        <Compile Include="Scenes\QuickDialogInteractiveScene.cs" />
+        <Compile Include="Scenes\TownPersistentInteractiveScene.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="notes-and-project-overview.txt" />
+      <Folder Include="Assets" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="README.md" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,6 +10,7 @@
             {
                 mainMenuInteractiveScene.Enter();
             }
+            // ReSharper disable once FunctionNeverReturns
         }
     }
 }

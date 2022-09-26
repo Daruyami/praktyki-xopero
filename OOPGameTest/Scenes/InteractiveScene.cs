@@ -5,20 +5,30 @@ namespace OOPGameTest
     public abstract class InteractiveScene : IScene
     {
         public string Name { get; set; }
+        protected string Description;
 
-        // ReSharper disable once InconsistentNaming
-        protected IScene[] _options;
+        protected IScene[] Options = new IScene[10];
 
-        public virtual IScene[] Options
+        protected abstract void InitOptions();
+
+        protected virtual void ListOptions()
         {
-            get => _options;
-            set => throw new NotImplementedException(); //setter listy opcji
+            for (int i = 0; i < Options.Length && Options[i] != null; i++)
+            {
+                    
+                Console.Out.WriteLine((i + 1) + ". " + Options[i].Name);
+                    
+            }
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("q. Exit");
         }
 
+        protected bool  Persistence = false;
 
-        protected InteractiveScene(string name)
+        protected InteractiveScene(string name, string description = "")
         {
             this.Name = name;
+            this.Description = description;
         }
 
         protected virtual void Exit()
@@ -27,41 +37,28 @@ namespace OOPGameTest
             return;
         }
 
-        public virtual void Enter()
+        public virtual bool Enter()
         {
-            Render();
-            HandleInputs();
+            InitOptions();
+            do //giga mózg
+            {
+                Render();
+            } while (HandleInputs());
+            return false;
         }
 
         protected virtual void Render()
         {
             Console.Clear();
             Console.Out.WriteLine("— — "+Name+" — —");
-            if (Options != null)
-            {
-                for (int i = 0; i < Options.Length; i++)
-                {
-                    if (Options[i] != null)
-                    {
-                        Console.Out.WriteLine((i + 1) + ". " + Options[i].Name);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                Console.Out.WriteLine("You have no options!");
-            }
-            Console.Out.WriteLine("q. Exit Game");
-            
+            Console.Out.WriteLine(Description);
+            ListOptions();
+
         }
 
-        protected virtual void HandleInputs()
+        protected virtual bool HandleInputs()
         {
-            int userNum = 0;
+            byte inputNumber = 1;
             bool waitingForInput = true;
             while (waitingForInput)
             {
@@ -69,28 +66,34 @@ namespace OOPGameTest
                 if (input != null && input[0] == 'q')
                 {
                     Exit();
-                    return;
+                    return false;
                 }
 
                 try
                 {
-                    userNum = int.Parse(input?[0].ToString() ?? "0");
+                    inputNumber = byte.Parse(input?[0].ToString() ?? "1");
                 }
                 catch (FormatException)
                 {
                     Console.Out.WriteLine("Wrong type of input, try again!");
                     continue;
                 }
-                
-                if (Options[userNum] == null)
-                {
-                    Console.Out.WriteLine("There is no such option!");
+
+                inputNumber -= 1;
+                if (Options[inputNumber] == null)
+                { 
+                    Console.Out.WriteLine("There is no such option!"); 
                     continue;
                 }
 
                 waitingForInput = false;
             }
-            Options[userNum].Enter();
+
+            if (Options[inputNumber].Enter())
+            {
+                return true;
+            }
+            else return Persistence;
         }
     }
 }

@@ -2,13 +2,12 @@ namespace OOPGameTest
 {
     public class MainMenuInteractiveScene : InteractiveScene
     {
-        public MainMenuInteractiveScene( /*IScene options*/) : base("Main Menu")
+        public MainMenuInteractiveScene() : base("Main Menu") { }
+        
+        protected override void InitOptions()
         {
-            _options = new IScene[4];
-            GameInteractiveScene gameInteractiveScene = new GameInteractiveScene();
-            _options[0] = gameInteractiveScene;
-            _options[1] = gameInteractiveScene;
-            _options[2] = gameInteractiveScene;
+            Options[0] = new SaveSelectorInteractiveScene("New Game", true);
+            Options[0] = new SaveSelectorInteractiveScene("Load Game", false);
         }
 
         protected override void Exit()
