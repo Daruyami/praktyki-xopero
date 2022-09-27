@@ -4,12 +4,14 @@ namespace OOPGameTest
 {
     public class ProgramExitScene : IScene
     {
-        private string _name = "Exit";
-        public string Name => _name;
-        public void Enter()
+        public string Name { get; } = "Exit";
+
+        public bool Enter()
         {
+            //dodać zapisywanie stanu gry przed wyjściem
             Console.Out.WriteLine("bye bye !");
             Environment.Exit(0);
+            return false;
         }
     }
 }
