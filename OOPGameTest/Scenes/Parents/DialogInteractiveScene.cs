@@ -2,7 +2,7 @@ using System;
 
 namespace OOPGameTest
 {
-    public class DialogInteractiveScene : InteractiveScene
+    public abstract class DialogInteractiveScene : InteractiveScene
     {
         public string ParentsName;
 
@@ -12,8 +12,6 @@ namespace OOPGameTest
         {
             this.ParentsName = parentsName;
         }
-
-        protected override void InitOptions() { }
 
         protected override void DisplayHeader()
         { 
