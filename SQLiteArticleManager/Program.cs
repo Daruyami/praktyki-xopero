@@ -2,7 +2,7 @@
 using System.IO;
 using SQLite;
 
-//używam paczki nuget: https://github.com/praeclarum/sqlite-net
+//używam paczki nuget: https://github.com/praeclarum/sqlite-net do obsługi sqlite
 namespace SQLiteArticleManager
 {
     [Table("articles")]
@@ -221,7 +221,6 @@ namespace SQLiteArticleManager
                         edit = false;
                         break;
                     case "nothing":
-                        edit = false;
                         Console.Out.WriteLine("Returning, article not modified!");
                         return;
                 }
@@ -254,13 +253,8 @@ namespace SQLiteArticleManager
         
         public static void Main(string[] args)
         {
-            // ReSharper disable once EmptyEmbeddedStatement
-            while (InitialiseConnection());
-
-            //do stuff, then close connection and exit
-            // ReSharper disable once EmptyEmbeddedStatement
+            while(InitialiseConnection());
             while(InputCommands());
-            
             _connection.Close();
         }
     }
