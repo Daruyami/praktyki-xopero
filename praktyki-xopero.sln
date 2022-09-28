@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guess99Test", "Guess99Test\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPGameTest", "OOPGameTest\OOPGameTest.csproj", "{D8FF315A-7698-4AED-8C5F-6628D17417EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteArticleManager", "SQLiteArticleManager\SQLiteArticleManager.csproj", "{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D8FF315A-7698-4AED-8C5F-6628D17417EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8FF315A-7698-4AED-8C5F-6628D17417EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8FF315A-7698-4AED-8C5F-6628D17417EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
