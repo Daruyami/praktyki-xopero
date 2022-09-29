@@ -1,105 +1,15 @@
 ﻿using System;
 using System.IO;
-using SQLite;
 
 //używam paczki nuget: https://github.com/praeclarum/sqlite-net do obsługi sqlite
 namespace SQLiteArticleManager
 {
-    [Table("articles")]
-    public class Article
-    {
-        [PrimaryKey, AutoIncrement]
-        [Column("id")]
-        public uint Id { get; set; }
-        
-        [Column("name")]
-        public string Name { get; set; }
-        
-        [Column("category")]
-        public string Category { get; set; }
-        
-        [Column("creation")]
-        public DateTime CreationDate { get; set; }
-        
-        [Column("modification")]
-        public DateTime ModificationDate { get; set; }
-        
-        [Column("content")]
-        public string Content { get; set; }
-    }
+    
     
     internal static class Program
     {
-        private static SQLiteConnection _connection;
-        public static bool InitialiseConnection()
-        {
-            Console.Clear();
-            string dbpath = GetUserInput("Please input path to database: ");
-            SQLiteConnectionString options;
-            if (File.Exists(dbpath))
-            {
-                Console.Out.WriteLine("Database found, initializing connection...");
-                options = new SQLiteConnectionString(dbpath, false);
-                _connection = new SQLiteConnection(options); //toadd trycatch
-                Console.Out.WriteLine("Connected successfully!");
-            }
-            else
-            {
-                string input = GetUserInput("Database not found, would you like to create a new one? y/n");
-                if (input[0] == 'y')
-                {
-                    options = new SQLiteConnectionString(dbpath,
-                        SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex | SQLiteOpenFlags.ReadWrite, false);
-                    _connection = new SQLiteConnection(options); //toadd trycatch
-                    Console.Out.WriteLine("Database successfully created...");
-                    _connection.CreateTable<Article>();
-                    Console.Out.WriteLine("and articles table successfully created!");
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static void _modifyArticle(uint id, string name=null, string category=null, string content=null) 
-        {
-            var article = _connection.Query<Article>(("SELECT * FROM articles WHERE id="+id));
-            if (article.Count == 0)
-            {
-                Console.Out.WriteLine("Article not found!");
-                return;
-            }
-            Console.Out.WriteLine("Article found, modifying...");
-            if(name != null)
-                article[0].Name = name;
-            if(category != null)
-                article[0].Category = category;
-            if(content != null)
-                article[0].Content = content;
-            article[0].ModificationDate = DateTime.Now;
-            _connection.Update(article[0]);
-            Console.Out.WriteLine("Article successfully modified!");
-        }
-
-        private static void _addArticle(string name, string category, DateTime creation, DateTime modification, string content)
-        {
-            var article = new Article()
-            {
-                Name = name,
-                Category = category,
-                CreationDate = creation,
-                ModificationDate = modification,
-                Content = content
-            };
-            _connection.Insert(article);
-        }
-        private static void _deleteArticle(uint id) 
-        {
-            _connection.Delete<Article>(id);
-        }
-
+        private static ArticleDbManager _articleDbManager = new ArticleDbManager();
+        
         public static string GetUserInput(string message=null)
         {
             if (message != null)
@@ -153,9 +63,9 @@ namespace SQLiteArticleManager
             Console.Out.WriteLine("exit\texits from the program");
         }
         
-        public static void ListArticles()		
+        public static void ListArticles()
         {
-            var articles = _connection.Query<Article>("SELECT * FROM articles");
+            var articles = _articleDbManager.GetArticleList();
             if (articles.Count == 0)
             {
                 Console.Out.WriteLine("No articles found!");
@@ -178,7 +88,7 @@ namespace SQLiteArticleManager
             string name = GetUserInput("Input articles name:");
             string category = GetUserInput("Input articles category:");
             string content = GetUserInput("Input articles content:");
-            _addArticle(name, category, DateTime.Now, DateTime.Now, content);
+            _articleDbManager.AddArticle(name, category, DateTime.Now, DateTime.Now, content);
         }
 
         public static void ModifyArticle()
@@ -226,7 +136,7 @@ namespace SQLiteArticleManager
                 }
             } while (edit) ;
 
-            _modifyArticle((uint)id, name, category, content);
+            _articleDbManager.ModifyArticle((uint)id, name, category, content);
         }
 
         public static void DeleteArticle()
@@ -248,14 +158,41 @@ namespace SQLiteArticleManager
                 notPass = false;
             } while (notPass);
             
-            _deleteArticle((uint)id);
+            _articleDbManager.DeleteArticle((uint)id);
         }
         
         public static void Main(string[] args)
         {
-            while(InitialiseConnection());
+            bool notInitialisedConnection = true;
+            do
+            {
+                bool dbFound;
+                Console.Clear();
+                var dbPath = Program.GetUserInput("Please input path to database: ");
+                if (File.Exists(dbPath))
+                {
+                    Console.Out.WriteLine("Database found, initializing connection...");
+                    dbFound = true;
+
+                }
+                else
+                {
+                    string input = Program.GetUserInput("Database not found, would you like to create a new one? y/n");
+                    if (input[0] == 'y')
+                    {
+                        dbFound = false;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                notInitialisedConnection = _articleDbManager.InitialiseConnection(dbPath, dbFound);
+            } while (notInitialisedConnection);
+            
             while(InputCommands());
-            _connection.Close();
+            
+            _articleDbManager.CloseConnection();
         }
     }
 }
