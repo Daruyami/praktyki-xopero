@@ -1,4 +1,12 @@
+# Przemyślenia co do projektu
+
+Sama podstawa projektu tj. "silnik scen" mogłaby teoretycznie służyć jako właśnie odrębny projekt silnika scen którego wtedy mógłbym używać do innych projektów jako prostego tui. Jednak aby to osiągnąć silnik ten wymaga dodatkowych prac, przypuszczam że wymagane będzie rozwiązanie paru problemów czy implementacja nowych funkcji, te oznaczyłem w TODO gwiazdką.
+
 ## TODO
+
+- [*] nieinteraktywne sceny typu input
+
+- [*] implementacja obsługi akcji przez sceny (`Act()`) tak żeby działały i były proste w użytku
 
 - Asset loader 
     - json serializacja/deserializacja
