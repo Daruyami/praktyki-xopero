@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteArticleManager", "SQL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRatesFromAPI", "CurrencyRatesFromAPI\CurrencyRatesFromAPI.csproj", "{0224A1F6-D186-4154-9FD7-346E53F69E87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLabIssuesClient", "GitLabIssuesClient\GitLabIssuesClient.csproj", "{34E062F3-7051-478E-95A6-4307681521E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34E062F3-7051-478E-95A6-4307681521E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34E062F3-7051-478E-95A6-4307681521E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34E062F3-7051-478E-95A6-4307681521E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34E062F3-7051-478E-95A6-4307681521E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
