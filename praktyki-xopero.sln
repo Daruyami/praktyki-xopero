@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPGameTest", "OOPGameTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteArticleManager", "SQLiteArticleManager\SQLiteArticleManager.csproj", "{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRatesFromAPI", "CurrencyRatesFromAPI\CurrencyRatesFromAPI.csproj", "{0224A1F6-D186-4154-9FD7-346E53F69E87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F4C02F4-D9EB-4A69-8A10-665B642E43BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0224A1F6-D186-4154-9FD7-346E53F69E87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
