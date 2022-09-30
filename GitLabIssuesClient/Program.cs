@@ -1,39 +1,96 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
-
+using GitLabApiClient;
+using GitLabApiClient.Internal.Paths;
+using GitLabApiClient.Models.Issues.Responses;
+using GitLabApiClient.Models.Notes.Requests;
 
 namespace GitLabIssuesClient
 {
     internal static class Program
     {
-        private static readonly HttpClient Client = new HttpClient();
+        public static GitLabClient Client;
+        public static ProjectId SelectedProject;
+        public static int SelectedIssue;
         
-        public static Dictionary<string,string> PostParams = new Dictionary<string, string>
+        public static async Task Init()
         {
-            {"grant_type", "password"},
-            { "username", "" },
-            { "password", "" }
-        };
+            string input = GetUserInput("Input gitlab url: ");
+            while (!Uri.IsWellFormedUriString(input, UriKind.Absolute))
+                input = GetUserInput("Bad uri! Try again: ");
+            string gitlabUri = input;
+            
+            input = GetUserInput("Would you like to use a private token or username and password? token/login");
+            while (input != "token" && input != "login")
+                input = GetUserInput();
+            if (input == "token")
+            {
+                input = GetUserInput("Input your private token: ");
+                Client = new GitLabClient(gitlabUri, input);
+            }
+            else
+            {
+                Client = new GitLabClient(gitlabUri);
+                await Client.LoginAsync(GetUserInput("Please input username: "), GetUserInput("Please input password: "));
+            }
+        }
 
-        public static Uri RequestUri;
-
-        private static string _token;
-
-        public static async Task<string> GetToken()
+        public static void SelectRepo()
         {
-            var content = new FormUrlEncodedContent(PostParams);
-            var response = await Client.PostAsync("https://"+RequestUri.Host+"/oauth/token", content);
-            return await response.Content.ReadAsStringAsync();
+            var input = GetUserInput("Please input the repo (project) id you want to operate on: ");
+            SelectedProject = input;
+        }
+
+        public static void SelectIssue()
+        {
+            SelectedIssue = int.Parse(GetUserInput("Please input the issue Iid you want to operate on: "));
         }
         
-        public static async Task<string> GetResponse(string path, Dictionary<string,string> parameters)
+        public static async Task GetIssues()
         {
-            var content = new FormUrlEncodedContent(parameters);
-            var response = await Client.PostAsync("https://"+RequestUri.Host+path, content);
-            Console.Out.WriteLine("response.IsSuccessStatusCode: " + response.IsSuccessStatusCode);
-            return await response.Content.ReadAsStringAsync();
+            var issues = await Client.Issues.GetAllAsync(SelectedProject, null, options => options.State = IssueState.All);
+            Console.Out.WriteLine("Issues: \n");
+            foreach (var issue in issues.Reverse())
+            {
+                Console.Out.WriteLine("Issue: "+issue.Title+" (Iid: "+issue.Iid+" )");
+                Console.Out.WriteLine("Author: "+issue.Author.Name);
+                Console.Out.WriteLine("State: "+issue.State);
+                Console.Out.WriteLine("\nDescription: \n\t"+issue.Description);
+                Console.Out.WriteLine("— — — — — — ");
+            }
+        }
+
+        public static async Task GetComments()
+        {
+            var issue = await Client.Issues.GetAsync(SelectedProject, SelectedIssue);
+            Console.Out.WriteLine("— — — — — — ");
+            Console.Out.WriteLine("Issue: "+issue.Title+" (Iid: "+issue.Iid+" )");
+            Console.Out.WriteLine("Author: "+issue.Author.Name);
+            Console.Out.WriteLine("State: "+issue.State);
+            Console.Out.WriteLine("\nDescription: \n\t"+issue.Description);
+            Console.Out.WriteLine("— — — — — — ");
+            
+            var comments = await Client.Issues.GetNotesAsync(SelectedProject, SelectedIssue);
+            Console.Out.WriteLine("Comments: \n");
+            foreach (var comment in comments.Reverse())
+            {
+                Console.Out.WriteLine("["+comment.CreatedAt+"] "+comment.Author.Name+": ");
+                Console.Out.WriteLine("\t"+comment.Body);
+                Console.Out.WriteLine("— — — — — — ");
+            }
+        }
+
+        public static void SendComment()
+        {
+            string input = GetUserInput("Input your message: ");
+            var task = Client.Issues.CreateNoteAsync(SelectedProject, SelectedIssue, new CreateIssueNoteRequest(input));
+            task.Wait();
+            var comment = task.Result;
+            Console.Out.WriteLine("Sent a comment: \n");
+            Console.Out.WriteLine("["+comment.CreatedAt+"] "+comment.Author.Name+": ");
+            Console.Out.WriteLine("\t"+comment.Body);
+            Console.Out.WriteLine("— — — — — — ");
         }
         
         public static string GetUserInput(string message=null)
@@ -47,39 +104,67 @@ namespace GitLabIssuesClient
             return input;
         }
 
+        public static void DisplayHelp()
+        {
+            Console.Out.WriteLine("Available commands: ");
+            Console.Out.WriteLine("?\t\tdisplays this message");
+            Console.Out.WriteLine("select repo\tselects the repo to operate on");
+            Console.Out.WriteLine("select issue\tselects the issue to operate on");
+            Console.Out.WriteLine("issues\t\tdisplays issues in the selected repo");
+            Console.Out.WriteLine("comments\tdisplays comments in the selected issue (correct repo also needs to be selected)");
+            Console.Out.WriteLine("send\t\tsends comment to the selected issue (correct repo also needs to be selected)");
+            Console.Out.WriteLine("exit\t\texits program");
+        }
+        
+        public static bool InputCommands()
+        {
+            string input = GetUserInput("\nWaiting for user commands, to list available commands type: ?");
+            Task task = null;
+            try
+            {
+                switch (input)
+                {
+                    case "?":
+                        DisplayHelp();
+                        break;
+                    case "select repo":
+                        SelectRepo();
+                        break;
+                    case "select issue":
+                        SelectIssue();
+                        break;
+                    case "issues":
+                        task = GetIssues();
+                        break;
+                    case "comments":
+                        task = GetComments();
+                        break;
+                    case "send":
+                        SendComment();
+                        break;
+                    case "exit":
+                        return false;
+                    default:
+                        DisplayHelp();
+                        break;
+
+                }
+            }
+            catch (GitLabException e)
+            {
+                Console.Out.WriteLine(e.Message);
+            }
+
+            if (task != null)
+                task.Wait();
+            return true;
+        }
+
         public static void Main(string[] args)
         {
-            string input = GetUserInput("Input gitlab uri: ");
-            while (!Uri.IsWellFormedUriString(input, UriKind.Absolute))
-            {
-
-                input = GetUserInput("Bad uri! Try again: ");
-            }
-
-            RequestUri = new Uri(input);
-            PostParams["username"] = GetUserInput("Input username: ");
-            PostParams["password"] = GetUserInput("Input password: ");
-            foreach (string key in PostParams.Keys)
-            {
-                Console.Out.WriteLine(key + ": " + PostParams[key]);
-            }
-
-            var response = GetToken().Result;
-            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(response);
-            Console.Out.WriteLine("response: \n" + response);
-            Console.Out.WriteLine("obj: " + obj);
-            _token = obj["access_token"];
-            Console.Out.WriteLine("obj[\"access_token\"]: "+_token);
-
-            /*
-            //nie wiem czemu nie działa, nie mam zielonego pojęcia
-            response = GetResponse("/oauth/token/info", new Dictionary<string, string>() { { "access_token", _token } }).Result;
-            Console.Out.WriteLine("response2: \n"+response);*/
-
-            response = GetResponse("/oauth/revoke", new Dictionary<string, string>() { { "access_token", _token } }).Result;
-            Console.Out.WriteLine("response3: \n"+response);
-
-
+            var task = Init();
+            task.Wait();
+            while(InputCommands());
         }
     }
 }
