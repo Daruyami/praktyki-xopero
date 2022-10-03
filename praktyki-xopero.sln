@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRatesFromAPI", "Cur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLabIssuesClient", "GitLabIssuesClient\GitLabIssuesClient.csproj", "{34E062F3-7051-478E-95A6-4307681521E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffViewer", "DiffViewer\DiffViewer.csproj", "{B537AE67-DBC6-451E-B3E6-C1CE369752B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{34E062F3-7051-478E-95A6-4307681521E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34E062F3-7051-478E-95A6-4307681521E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34E062F3-7051-478E-95A6-4307681521E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
