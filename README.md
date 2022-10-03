@@ -28,4 +28,7 @@ CurrencyRatesFromAPI to:
 GitLabIssuesClient to:
 >Aplikacja, która pozwala użytkownikowi GitLab zautoryzować się ( https://docs.gitlab.com/ee/api/oauth2.html ) oraz przeglądać issues ( https://docs.gitlab.com/ee/api/issues.html ) i komentarze w nich ( https://docs.gitlab.com/ee/api/notes.html#issues ), a także wysyłać nowe komentarze.
 
+DiffViewer to:
+> Aplikacja typu 'diff viewer', pozwalająca porównać 2 pliki (głównie mowa o plikach zawierających kod) i wyświetlić różnice między nimi. Dodany kod powinien być oznaczony zielonym tłem, a usunięty czerwonym - tak, jak w pull requestach na GitHub czy Bitbucket. Można (a właściwie to trzeba) wspomóc się biblioteką.
+
 ...
