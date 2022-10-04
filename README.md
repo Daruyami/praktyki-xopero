@@ -31,4 +31,7 @@ GitLabIssuesClient to:
 DiffViewer to:
 > Aplikacja typu 'diff viewer', pozwalająca porównać 2 pliki (głównie mowa o plikach zawierających kod) i wyświetlić różnice między nimi. Dodany kod powinien być oznaczony zielonym tłem, a usunięty czerwonym - tak, jak w pull requestach na GitHub czy Bitbucket. Można (a właściwie to trzeba) wspomóc się biblioteką.
 
+GitWildcardIssues to:
+> Aplikacja, która umożliwia użytkownikowi GitHub lub GitLab zarządzanie issues (https://docs.github.com/en/rest/issues/issues) w wybranym przez niego repozytorium - wyświetlanie, tworzenie, edycja. Na początku użytkownik musi wybrać, czy korzysta z GitHub czy z GitLab. Następnie podaje dane autoryzacyjne, po czym uzyskuje dostęp do zarządzania issues. Proszę napisać kod w sposób umożliwiający dość łatwe dodanie obsługi innych aplikacji (np. Bitbucket) w przyszłości.
+
 ...
