@@ -18,7 +18,7 @@ namespace GitLabIssuesClient
         {
             string input = GetUserInput("Input gitlab url: ");
             while (!Uri.IsWellFormedUriString(input, UriKind.Absolute))
-                input = GetUserInput("Bad uri! Try again: ");
+                input = GetUserInput("Bad url! Try again: ");
             string gitlabUri = input;
             
             input = GetUserInput("Would you like to use a private token or username and password? token/login");

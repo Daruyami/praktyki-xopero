@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLabIssuesClient", "GitLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffViewer", "DiffViewer\DiffViewer.csproj", "{B537AE67-DBC6-451E-B3E6-C1CE369752B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWildcardIssues", "GitWildcardIssues\GitWildcardIssues.csproj", "{DAEE09BA-8D64-45DD-B59C-BDFFAF4383F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B537AE67-DBC6-451E-B3E6-C1CE369752B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAEE09BA-8D64-45DD-B59C-BDFFAF4383F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAEE09BA-8D64-45DD-B59C-BDFFAF4383F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAEE09BA-8D64-45DD-B59C-BDFFAF4383F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAEE09BA-8D64-45DD-B59C-BDFFAF4383F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
